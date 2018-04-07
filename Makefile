@@ -1,6 +1,6 @@
 OUTPUT_FILE= output.ghw
 WORK_DIR=work
-GHDL_FLAGS= --workdir=$(WORK_DIR)
+GHDL_FLAGS= --workdir=$(WORK_DIR) --std=08
 
 build : init
 	ghdl -m $(GHDL_FLAGS) computer_TB
@@ -10,3 +10,6 @@ init : $(WORK_DIR)/
 
 $(WORK_DIR)/ :
 	mkdir $(WORK_DIR)
+
+clean :
+	ghdl --clean $(GHDL_FLAGS)
