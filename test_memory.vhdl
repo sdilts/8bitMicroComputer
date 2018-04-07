@@ -39,9 +39,9 @@ begin
 
   RESET : process
   begin
-    reset_TB <= '1';
-    wait for t_clk_per/4;
     reset_TB <= '0';
+    wait for t_clk_per/4;
+    reset_TB <= '1';
     wait;
   end process;
 

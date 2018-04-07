@@ -49,7 +49,7 @@ begin
     variable LSD : std_logic_vector(3 downto 0);
   begin
     LSD  := address(3 downto 0);
-    if reset = '1' then
+    if reset = '0' then
       for I in 0 to ports_out'length-1 loop
         ports_out(I) <= x"00";
       end loop;
