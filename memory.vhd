@@ -16,28 +16,28 @@ end entity;
 architecture memory_arch of memory is
 
   component rom_128x8_sync is
-    port (address  : in std_logic_vector(word_width downto 0);
+    port (address  : in std_logic_vector(6 downto 0);
           clock    : in std_logic;
           data_out : out std_logic_vector(word_width downto 0));
   end component;
 
   component rw_96x8_sync is
-  port(address, data_in : in std_logic_vector(word_width downto 0);
-       w_bit            : in std_logic;
-       clock            : in std_logic;
-       data_out : out std_logic_vector(word_width downto 0));
+    port(address  : in std_logic_vector(6 downto 0);
+         data_in  : in std_logic_vector(word_width downto 0);
+         w_bit    : in std_logic;
+         clock    : in std_logic;
+         data_out : out std_logic_vector(word_width downto 0));
   end component;
 
   signal rom_out : std_logic_vector(word_width downto 0);
   signal rw_out  : std_logic_vector(word_width downto 0);
 begin
 
-  ROM : rom_128x8_sync port map(address  => address,
+  ROM : rom_128x8_sync port map(address => address(6 downto 0),
                                 clock    => clock,
                                 data_out => rom_out);
 
-  -- no conversion needed: rw_96 outputs the correct values
-  RW  : rw_96x8_sync port map(address => address,
+  RW  : rw_96x8_sync port map(address => address(6 downto 0),
                               data_in => data_in,
                               w_bit   => w_bit,
                               clock => clock,
@@ -46,8 +46,9 @@ begin
   OUTPUT_MULTI : process(ports_in, rom_out, rw_out,
                          address)
     -- least significant hex digit:
-    variable LSD : std_logic_vector(3 downto 0) := address(3 downto 0);
+    variable LSD : std_logic_vector(3 downto 0);
   begin
+    LSD  := address(3 downto 0);
     if address <= x"7f" then
       data_out <= rom_out;
     elsif address <= x"df" then

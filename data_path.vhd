@@ -5,8 +5,8 @@ use IEEE.NUMERIC_STD.all;
 use WORK.cpu_constants.all;
 
 entity data_path is
-  port(IR_Load, MAR_Load, PC_Load, PC_inc, A_Load, B_Load, CCR_Load,
-       Bus2_Sel, Bus1_Sel : in std_logic;
+  port(IR_Load, MAR_Load, PC_Load, PC_inc, A_Load, B_Load, CCR_Load : in std_logic;
+       Bus2_Sel, Bus1_Sel : in std_logic_vector(1 downto 0);
        ALU_Sel : in std_logic_vector(2 downto 0);
        from_memory : in std_logic_vector(word_width downto 0);
        CCR_Result : out std_logic_vector(3 downto 0);
@@ -18,7 +18,7 @@ architecture data_path_arch of data_path is
 
   component multiplexer_3t1 is
       port(one, two, three : in std_logic_vector(word_width downto 0);
-           sel  : in std_logic;
+           sel  : in std_logic_vector(1 downto 0);
            output  : out std_logic_vector(word_width downto 0));
   end component;
 
