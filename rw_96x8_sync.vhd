@@ -4,7 +4,7 @@ use IEEE.NUMERIC_STD.all;
 
 entity rw_96x8_sync is
   port(address, data_in : in std_logic_vector(7 downto 0);
-       write            : in std_logic;
+       w_bit            : in std_logic;
        clock            : in std_logic;
        data_out : out std_logic_vector(7 downto 0));
 end entity;
