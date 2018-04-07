@@ -82,10 +82,19 @@ begin
 
     report "Testing output ports...";
     -- test if we can set the value of output ports correctly:
-    for I in 224 to 224 + 15 loop
+    for I in 0 to ports_out_tb'length - 1 loop
+      assert ports_out_tb(i) = x"00" report "Output ports not zeroed correctly" severity failure;
+    end loop;
+
+    w_bit_tb <= '1';
+    for I in  224 to 239 loop
       address_tb <= std_logic_vector(to_unsigned(I, address_tb'length));
+      data_in_tb <= std_logic_vector(to_unsigned(I, address_tb'length));
       wait for t_clk_per;
-      assert data_out_tb = x"00" report "Output ports not zeroed correctly" severity failure;
+    end loop;
+    w_bit_TB <= '0';
+    for I in 0 to ports_out_tb'length - 1 loop
+      assert ports_out_tb(i) = std_logic_vector(to_unsigned(I + 224, address_tb'length)) report "Output ports not zeroed correctly" severity failure;
     end loop;
 
     stop(0);

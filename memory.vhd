@@ -43,6 +43,23 @@ begin
                               clock => clock,
                               data_out => rw_out);
 
+  -- controls how the output ports are set:
+  -- need w_bit set and in the correct address space:
+  OUTPUT_PORTS : process(clock, reset)
+    variable LSD : std_logic_vector(3 downto 0);
+  begin
+    LSD  := address(3 downto 0);
+    if reset = '1' then
+      for I in 0 to ports_out'length-1 loop
+        ports_out(I) <= x"00";
+      end loop;
+    elsif address >= x"E0" and address < x"F0" then
+      if rising_edge(clock) and w_bit = '1' then
+        ports_out(to_integer(unsigned(LSD))) <= data_in;
+      end if;
+    end if;
+  end process;
+
   OUTPUT_MULTI : process(ports_in, rom_out, rw_out,
                          address)
     -- least significant hex digit:
