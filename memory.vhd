@@ -1,5 +1,7 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
+use IEEE.NUMERIC_STD.all;
+
 use WORK.cpu_constants.all;
 
 entity memory is
@@ -34,10 +36,27 @@ begin
                                 clock    => clock,
                                 data_out => rom_out);
 
+  -- no conversion needed: rw_96 outputs the correct values
   RW  : rw_96x8_sync port map(address => address,
                               data_in => data_in,
                               w_bit   => w_bit,
                               clock => clock,
                               data_out => rw_out);
+
+  OUTPUT_MULTI : process(ports_in, rom_out, rw_out,
+                         address)
+    -- least significant hex digit:
+    variable LSD : std_logic_vector(3 downto 0) := address(3 downto 0);
+  begin
+    if address <= x"7f" then
+      data_out <= rom_out;
+    elsif address <= x"df" then
+      data_out <= rw_out;
+    elsif address <= x"ef" then
+      data_out <= ports_out(to_integer(unsigned(LSD)));
+    else
+      data_out <= ports_in(to_integer(unsigned(LSD)));
+    end if;
+  end process;
 
 end architecture;
