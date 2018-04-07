@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# checks to see if the vhdl files in the first argument have changed
+# if they have changed, or this script cant find its "database" file,
+# check_files.txt, everything after the first argument is run as one command
+
+gen_file () {
+    touch $1
+    find . -name "*.vhdl" > $1
+    find . -name "*.vhd" >> $1
+}
+
+check_name=$1/check_files.txt
+
+if [ ! -f $check_name ]; then
+    # no file to check against, so put one there:
+    gen_file $check_name
+    echo "Running ${@:2}"
+    ${@:2}
+else
+    tfile=$(mktemp)
+    gen_file $tfile
+    diff --brief <(sort "$tfile") <(sort "$check_name") > /dev/null
+    result=$?
+    if [ $result -ne 0 ]; then
+	# upate the check file:
+	cat $tfile > $check_name
+	echo "Running ${@:2}"
+	${@:2}
+    fi
+fi

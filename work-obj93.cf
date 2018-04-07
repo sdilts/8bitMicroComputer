@@ -1,0 +1,4 @@
+v 4
+file . "alu.vhd" "619da2d6672523c8ebed1d4259ecd745bec2f3d9" "20180406214915.675":
+  entity alu at 1( 0) + 0 on 11;
+  architecture alu_arc of alu at 14( 359) + 0 on 12;
