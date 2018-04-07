@@ -56,9 +56,9 @@ begin
   TEST : process
     variable vec_addr  : std_logic_vector(word_width downto 0);
   begin
+    w_bit_TB <= '0';
     wait for t_clk_per/2;
     -- first test: make sure there are no out of bounds,
-    w_bit_TB <= '0';
     report "Testing ranges...";
     for I in 0 to 255 loop
       address_tb <= std_logic_vector(to_unsigned(I, address_tb'length));
@@ -94,9 +94,22 @@ begin
     end loop;
     w_bit_TB <= '0';
     for I in 0 to ports_out_tb'length - 1 loop
-      assert ports_out_tb(i) = std_logic_vector(to_unsigned(I + 224, address_tb'length)) report "Output ports not zeroed correctly" severity failure;
+      assert ports_out_tb(i) = std_logic_vector(to_unsigned(I + 224, address_tb'length))
+        report "Output ports not set correctly" severity failure;
     end loop;
 
+    report "Testing input ports...";
+    for I in 0 to ports_out_tb'length - 1 loop
+      ports_in_tb(i) <= std_logic_vector(to_unsigned(I + 240, address_tb'length));
+    end loop;
+
+    for I in 0 to ports_out_tb'length - 1 loop
+      address_tb <= std_logic_vector(to_unsigned(I + 240, address_tb'length));
+      wait for t_clk_per;
+      assert data_out_tb = std_logic_vector(to_unsigned(I + 240, address_tb'length))
+        report "Input ports not set correctly" severity failure;
+    end loop;
+    wait for t_clk_per*2;
     stop(0);
   end process;
 end architecture;

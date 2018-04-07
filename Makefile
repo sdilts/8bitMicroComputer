@@ -5,6 +5,9 @@ GHDL_FLAGS= --workdir=$(WORK_DIR) --std=08
 coputer_TB : init
 	ghdl -m $(GHDL_FLAGS) computer_TB
 
+run_tests : test_memory
+	./test_memory --wave=memory.ghw
+
 test_memory : init
 	ghdl -m $(GHDL_FLAGS) test_memory
 
@@ -16,3 +19,5 @@ $(WORK_DIR)/ :
 
 clean :
 	ghdl --clean $(GHDL_FLAGS)
+	rm *.o
+	rm *.ghw
