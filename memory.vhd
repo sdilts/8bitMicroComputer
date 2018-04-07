@@ -53,9 +53,7 @@ begin
       data_out <= rom_out;
     elsif address <= x"df" then
       data_out <= rw_out;
-    elsif address <= x"ef" then
-      data_out <= ports_out(to_integer(unsigned(LSD)));
-    else
+    elsif address >= x"F0" then
       data_out <= ports_in(to_integer(unsigned(LSD)));
     end if;
   end process;
