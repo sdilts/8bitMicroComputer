@@ -3,7 +3,14 @@ use IEEE.std_logic_1164.all;
 
 package cpu_constants is
   constant word_width : integer := 7;
-  constant ALU_Sel_width : integer := 3;
+  constant ALU_ADD : std_logic_vector(2 downto 0) := "000";
+  constant ALU_SUB : std_logic_vector(2 downto 0) := "001";
+  constant ALU_OR  : std_logic_vector(2 downto 0) := "010";
+  constant ALU_AND : std_logic_vector(2 downto 0) := "011";
+  constant ALU_INCA : std_logic_vector(2 downto 0) := "100";
+  constant ALU_DECA : std_logic_vector(2 downto 0) := "101";
+  constant ALU_INCB : std_logic_vector(2 downto 0) := "110";
+  constant ALU_DECB : std_logic_vector(2 downto 0) := "111";
   type io_array is array(15 downto 0) of std_logic_vector(word_width downto 0);
 
   constant LDA_IMM : std_logic_vector (word_width downto 0) := x"86";
