@@ -121,7 +121,67 @@ begin
         Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
         Bus2_Sel <= "10"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
         w_bit <= '0';
-        -- “output assignments for all other states go here. . .”
+        -- hasn't been tested yet:
+      when S_LDA_DIR_4 =>
+        IR_Load <= '0';
+        MAR_Load <= '1';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '1';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "01"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_LDA_DIR_5 =>
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '0';
+        PC_Inc <= '1';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "01"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_LDA_DIR_6 =>
+        IR_Load <= '0';
+        MAR_Load <= '1';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "10"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_LDA_DIR_7 =>
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "10"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_LDA_DIR_8 =>
+        IR_Load <= '0';
+        MAR_Load <= '1';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '1';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "10"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
       when others =>
         report "Shouldn't get here" severity failure;
     end case;
@@ -176,6 +236,17 @@ begin
     elsif current_state = S_LDA_IMM_5 then
       next_state <= S_LDA_IMM_6;
     elsif current_state = S_LDA_IMM_6 then
+      next_state <= S_FETCH_0;
+      -- LDA_DIR states ------------------------------------------------
+    elsif current_state = S_LDA_DIR_4 then
+      next_state <= S_LDA_DIR_5;
+    elsif current_state = S_LDA_DIR_5 then
+      next_state <= S_LDA_DIR_6;
+    elsif current_state = S_LDA_DIR_6 then
+      next_state <= S_LDA_DIR_7;
+    elsif current_state = S_LDA_DIR_7 then
+      next_state <= S_LDA_DIR_8;
+    elsif current_state = S_LDA_DIR_8 then
       next_state <= S_FETCH_0;
     else
       report "Shouldn't get to else in if statement" severity failure;
