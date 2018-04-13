@@ -17,6 +17,19 @@ end entity;
 
 architecture control_unit_arch of control_unit is
 
+
+  -- instructions to implement:
+  -- branching:
+  -- BCS?
+  -- BVS?
+  -- BMI?
+  -- ALU instructions:
+  -- AND_AB
+  -- OR_AB
+  -- INCA
+  -- INCB
+  -- DECA
+  -- DECB
   type state_type is
     (S_FETCH_0, S_FETCH_1, S_FETCH_2,
      S_DECODE_3,
@@ -30,8 +43,12 @@ architecture control_unit_arch of control_unit is
 
      S_ADD_AB_4,
      s_SUB_AB_4,
+     -- branch always
      S_BRA_4, S_BRA_5, S_BRA_6,
-     S_BEQ_4, S_BEQ_5, S_BEQ_6, S_BEQ_7);
+     -- branch when result = 0
+     S_BEQ_4, S_BEQ_5, S_BEQ_6, S_BEQ_7,
+     -- branching is the same, it just depends on whether to start at 4 or 7:
+     S_BRANCH_4, S_BRANCH_5, S_BRANCH_6, S_BRANCH_7);
 
   signal current_state : state_type := S_FETCH_0;
   signal next_state : state_type;
@@ -485,6 +502,45 @@ begin
         Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
         Bus2_Sel <= "00"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
         w_bit <= '0';
+      when S_BRANCH_5 =>
+        -- do nothing:
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "00"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_BRANCH_6 =>
+        -- Put from memory into PC
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '1';
+        PC_Inc <= '0';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "10"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_BRANCH_7 =>
+        -- Increment PC: don't branch
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '0';
+        PC_Inc <= '1';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "00"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
       when others =>
         report "Shouldn't get here" severity failure;
     end case;
@@ -540,15 +596,42 @@ begin
       elsif (IR = BRA) then
         -- Branch Always
         next_state <= S_BRA_4;
+      elsif IR = BCS then
+        if CCR_Result(3) = '1' then
+          next_state <= S_BRANCH_4;
+        else
+          next_state <= S_BRANCH_7;
+        end if;
       elsif (IR=BEQ and CCR_Result(2)='1') then
         -- BEQ and Z=1
         next_state <= S_BEQ_4;
       elsif (IR=BEQ and CCR_Result(2)='0') then
         -- BEQ and Z=0
         next_state <= S_BEQ_7;
+      elsif IR = BVS then
+        if CCR_Result(1) = '1' then
+          next_state <= S_BRANCH_4;
+        else
+          next_state <= S_BRANCH_7;
+        end if;
+      elsif IR = BMI then
+        if CCR_Result(0) = '1' then
+          next_state <= S_BRANCH_4;
+        else
+          next_state <= S_BRANCH_7;
+        end if;
       else
         next_state <= S_FETCH_0;
       end if;
+    -- Branching states ------------------------------------
+    elsif current_state = S_BRANCH_4 then
+      next_state <= S_BRANCH_5;
+    elsif current_state = S_BRANCH_5 then
+      next_state <= S_BRANCH_6;
+    elsif current_state = S_BRANCH_6 then
+      next_state <= S_FETCH_0;
+    elsif current_state = S_BRANCH_7 then
+      next_state <= S_FETCH_0;
     -- LDA_IMM states ---------------------------------------
     elsif current_state = S_LDA_IMM_4 then
       next_state <= S_LDA_IMM_5;
@@ -567,7 +650,7 @@ begin
       next_state <= S_LDA_DIR_8;
     elsif current_state = S_LDA_DIR_8 then
       next_state <= S_FETCH_0;
-      -- STA_DIR states --------------------------------------------
+    -- STA_DIR states --------------------------------------------
     elsif current_state = S_STA_DIR_4 then
       next_state <= S_STA_DIR_5;
     elsif current_state = S_STA_DIR_5 then
@@ -603,10 +686,10 @@ begin
       next_state <= S_STB_DIR_7;
     elsif current_state = S_STB_DIR_7 then
       next_state <= S_FETCH_0;
-    -- ADD_AB states:
+    -- ADD_AB states: ---------------------------------------
     elsif current_state = S_ADD_AB_4 then
       next_state <= S_FETCH_0;
-    -- SUB_AB states:
+    -- SUB_AB states:----------------------------------------
     elsif current_state = S_SUB_AB_4 then
       next_state <= S_FETCH_0;
     -- BRA instruction
@@ -616,7 +699,7 @@ begin
       next_state <= S_BRA_6;
     elsif current_state = S_BRA_6 then
       next_state <= S_FETCH_0;
-      -- BEQ instruction
+    -- BEQ instruction
     elsif current_state = S_BEQ_4 then
       next_state <= S_BEQ_5;
     elsif current_state = S_BEQ_5 then
