@@ -25,6 +25,7 @@ begin
       when "10" =>
         output <= three;
       when others =>
+        -- report "Invalid input to multiplexer" severity failure;
         output <= "00000000";
     end case;
   end process;

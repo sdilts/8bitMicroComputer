@@ -13,10 +13,10 @@ end entity;
 architecture rom_128x8_sync_arch of rom_128x8_sync is
   type ROM_type is array(127 downto 0) of std_logic_vector(word_width downto 0);
 
-  constant ROM : ROM_type := (0 => x"FF",
-                              1 => x"EE",
-                              2 => x"DD",
-                              3 => x"CC",
+  constant ROM : ROM_type := (0 => LDA_IMM,
+                              1 => x"AA",
+                              2 => LDA_IMM,
+                              3 => x"AA",
                               4 => x"BB",
                               5 => x"AA",
                               6 => x"99",

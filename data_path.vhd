@@ -49,16 +49,109 @@ begin
                      NZVC    => NZVC,
                      Result  => ALU_result);
 
-  BUS1_multi : multiplexer_3t1 port map(one => PC,
-                                        -- TODO: A, B correct?
-                                        two => A, three => B,
-                                        sel     => Bus1_Sel,
-                                        output  => bus1);
+  -- BUS1_multi : multiplexer_3t1 port map(one => PC,
+  --                                       -- TODO: A, B correct?
+  --                                       two => A, three => B,
+  --                                       sel     => Bus1_Sel,
+  --                                       output  => bus1);
 
-  BUS2_multi : multiplexer_3t1 port map(one => ALU_result,
-                                        -- TODO: A, B correct?
-                                        two => bus1,
-                                        three => from_memory,
-                                        sel     => Bus2_Sel,
-                                        output  => bus2);
+  -- BUS2_multi : multiplexer_3t1 port map(one => ALU_result,
+  --                                       two => bus1,
+  --                                       three => from_memory,
+  --                                       sel     => Bus2_Sel,
+  --                                       output  => bus2);
+
+
+  MUX_BUS1 : process (Bus1_Sel, PC, A, B)
+  begin
+    case (Bus1_Sel) is
+      when "00" => Bus1 <= PC;
+      when "01" => Bus1 <= A;
+      when "10" => Bus1 <= B;
+      when others => Bus1 <= x"00";
+    end case;
+  end process;
+
+  MUX_BUS2 : process (Bus2_Sel, ALU_Result, Bus1, from_memory)
+  begin
+    case (Bus2_Sel) is
+      when "00" => Bus2 <= ALU_Result;
+      when "01" => Bus2 <= Bus1;
+      when "10" => Bus2 <= from_memory;
+      when others => Bus2 <= x"00";
+    end case;
+  end process;
+
+  address <= MAR;
+  to_memory <= bus1;
+
+  INSTRUCTION_REGISTER: process(clock, reset)
+  begin
+    if reset = '0' then
+      report "Reseting IR";
+      IR <= x"00";
+    elsif rising_edge(clock) then
+      if IR_Load = '1' then
+        report "Setting IR";
+        IR <= bus2;
+      end if;
+    end if;
+  end process;
+
+  MEM_ADDR_REGISTER : process(clock, reset)
+  begin
+    if reset = '0' then
+      MAR <= x"00";
+    elsif rising_edge(clock) then
+      if MAR_Load = '1' then
+        MAR <= bus2;
+      end if;
+    end if;
+  end process;
+
+  PROGRAM_COUNTER : process(Clock, Reset)
+  begin
+    if reset = '0' then
+      PC_uns <= x"00";
+    elsif rising_edge(clock) then
+      if PC_Load = '1' then
+        PC_uns <= unsigned(bus2);
+      elsif PC_inc = '1' then
+        PC_uns <= PC_uns + 1;
+      end if;
+    end if;
+  end process;
+
+  PC <= std_logic_vector(PC_uns);
+  A_REGISTER : process(clock, reset)
+  begin
+    if reset  = '0' then
+      A <= x"00";
+    elsif rising_edge(clock) then
+      report "Contents of A: " & to_hstring(bus1);
+      A <= bus1;
+    end if;
+  end process;
+
+  B_REGISTER : process(clock, reset)
+  begin
+    if reset = '0' then
+      B <= x"00";
+    elsif rising_edge(clock) then
+      if B_Load = '1' then
+        B <= bus2;
+      end if;
+    end if;
+  end process;
+
+  CONDITION_CODE_REGISTER : process(clock, reset)
+  begin
+    if reset = '0' then
+      CCR_Result <= x"0";
+    elsif rising_edge(clock) then
+      if CCR_Load = '1' then
+        CCR_Result <= NZVC;
+      end if;
+    end if;
+  end process;
 end architecture;

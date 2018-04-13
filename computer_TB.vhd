@@ -15,6 +15,8 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
+use STD.env.all;
+
 entity computer_TB is
 end entity;
 
@@ -150,7 +152,7 @@ architecture computer_TB_arch of computer_TB is
 -----------------------------------------------
       RESET_STIM : process
        begin
-          reset_TB <= '0'; wait for 0.25*t_clk_per;
+          reset_TB <= '0'; wait for 0.25*t_clk_per+t_clk_per;
           reset_TB <= '1'; wait;
        end process;
 -----------------------------------------------
