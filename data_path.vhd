@@ -88,11 +88,9 @@ begin
   INSTRUCTION_REGISTER: process(clock, reset)
   begin
     if reset = '0' then
-      report "Reseting IR";
       IR <= x"00";
     elsif rising_edge(clock) then
       if IR_Load = '1' then
-        report "Setting IR";
         IR <= bus2;
       end if;
     end if;
@@ -129,7 +127,6 @@ begin
     if reset  = '0' then
       A <= x"00";
     elsif rising_edge(clock) then
-      report "Contents of A: " & to_hstring(bus1);
       if A_Load = '1' then
         A <= bus2;
       end if;

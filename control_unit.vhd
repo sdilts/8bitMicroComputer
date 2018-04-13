@@ -35,7 +35,6 @@ begin
 
     OUTPUT_LOGIC : process(current_state)
     begin
-      report "Current state is: " & to_string(current_state);
     case(current_state) is
       when S_FETCH_0 => -- Put PC onto MAR to read Opcode
         IR_Load <= '0';
