@@ -26,6 +26,7 @@ architecture memory_arch of memory is
          data_in  : in std_logic_vector(word_width downto 0);
          w_bit    : in std_logic;
          clock    : in std_logic;
+         reset    : in std_logic;
          data_out : out std_logic_vector(word_width downto 0));
   end component;
 
@@ -41,6 +42,7 @@ begin
                               data_in => data_in,
                               w_bit   => w_bit,
                               clock => clock,
+                              reset => reset,
                               data_out => rw_out);
 
   -- controls how the output ports are set:
