@@ -387,6 +387,42 @@ begin
         Bus1_Sel <= "01"; -- "00"=PC, "01"=A, "10"=B
         Bus2_Sel <= "00"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
         w_bit <= '0';
+      when S_BRA_4 =>
+        IR_Load <= '0';
+        MAR_Load <= '1';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "01"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_BRA_5 =>
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "00"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
+      when S_BRA_6 =>
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '1';
+        PC_Inc <= '0';
+        A_Load <= '0';
+        B_Load <= '0';
+        ALU_Sel <= "000";
+        CCR_Load <= '0';
+        Bus1_Sel <= "00"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "10"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
       when others =>
         report "Shouldn't get here" severity failure;
     end case;
@@ -442,12 +478,12 @@ begin
         -- BEQ and Z=1
         next_state <= S_BEQ_4;
       elsif (IR=BEQ and CCR_Result(2)='0') then
-        -- BEQ and Z=1
+        -- BEQ and Z=0
         next_state <= S_BEQ_7;
       else
         next_state <= S_FETCH_0;
       end if;
-      -- LDA_IMM states ---------------------------------------
+    -- LDA_IMM states ---------------------------------------
     elsif current_state = S_LDA_IMM_4 then
       next_state <= S_LDA_IMM_5;
     elsif current_state = S_LDA_IMM_5 then
@@ -503,6 +539,13 @@ begin
       next_state <= S_FETCH_0;
     -- ADD_AB states:
     elsif current_state = S_ADD_AB_4 then
+      next_state <= S_FETCH_0;
+    -- BRA instruction
+    elsif current_state = S_BRA_4 then
+      next_state <= S_BRA_5;
+    elsif current_state = S_BRA_5 then
+      next_state <= S_BRA_6;
+    elsif current_state = S_BRA_6 then
       next_state <= S_FETCH_0;
     else
       report "Shouldn't get to else in if statement" severity failure;
