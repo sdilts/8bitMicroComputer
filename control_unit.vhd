@@ -387,6 +387,18 @@ begin
         Bus1_Sel <= "01"; -- "00"=PC, "01"=A, "10"=B
         Bus2_Sel <= "00"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
         w_bit <= '0';
+      when S_SUB_AB_4 =>
+        IR_Load <= '0';
+        MAR_Load <= '0';
+        PC_Load <= '0';
+        PC_Inc <= '0';
+        A_Load <= '1';
+        B_Load <= '0';
+        ALU_Sel <= "001";
+        CCR_Load <= '1';
+        Bus1_Sel <= "01"; -- "00"=PC, "01"=A, "10"=B
+        Bus2_Sel <= "00"; -- "00"=ALU, "01"=Bus1, "10"=from_memory
+        w_bit <= '0';
       when S_BRA_4 =>
         IR_Load <= '0';
         MAR_Load <= '1';
@@ -471,6 +483,10 @@ begin
       elsif (IR = ADD_AB) then
         -- Add A and B
         next_state <= S_ADD_AB_4;
+      elsif (IR = SUB_AB) then
+        -- Add A and B
+        next_state <= S_SUB_AB_4;
+      -- Branching instructions -----------------------------
       elsif (IR = BRA) then
         -- Branch Always
         next_state <= S_BRA_4;
@@ -539,6 +555,9 @@ begin
       next_state <= S_FETCH_0;
     -- ADD_AB states:
     elsif current_state = S_ADD_AB_4 then
+      next_state <= S_FETCH_0;
+    -- SUB_AB states:
+    elsif current_state = S_SUB_AB_4 then
       next_state <= S_FETCH_0;
     -- BRA instruction
     elsif current_state = S_BRA_4 then

@@ -47,7 +47,7 @@ begin
       -- carry flag
       NZVC(0) <= sum_uns(8);
     elsif ALU_Sel = "001" then
-      -- addition
+      -- subtraction!
       sum_uns := unsigned('0' & A) - unsigned('0' & B);
       Result <= std_logic_vector(sum_uns);
       -- Negative flag
@@ -61,8 +61,8 @@ begin
       end if;
 
       --overflow flag
-      if ((A(7) = '0' and B(7) = '0' and sum_uns(7) = '1') or
-          (A(7) = '1' and B(7) = '1' and sum_uns(7) = '0')) then
+      if ((A(7) = '0' and B(7) = '1' and sum_uns(7) = '1') or
+          (A(7) = '1' and B(7) = '0' and sum_uns(7) = '0')) then
         NZVC(1) <= '1';
       else
         NZVC(1) <= '0';
