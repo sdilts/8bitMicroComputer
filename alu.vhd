@@ -49,7 +49,7 @@ begin
     elsif ALU_Sel = "001" then
       -- subtraction!
       sum_uns := unsigned('0' & A) - unsigned('0' & B);
-      Result <= std_logic_vector(sum_uns);
+      Result <= std_logic_vector(sum_uns(word_width downto 0));
       -- Negative flag
       NZVC(3) <= sum_uns(7);
 

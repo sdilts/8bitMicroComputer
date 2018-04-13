@@ -13,24 +13,43 @@ end entity;
 architecture rom_128x8_sync_arch of rom_128x8_sync is
   type ROM_type is array(127 downto 0) of std_logic_vector(word_width downto 0);
 
-  constant ROM : ROM_type := (0 => LDA_IMM,
-                              1 => x"AA",
-                              2 => LDA_IMM,
-                              3 => x"AA",
-                              4 => x"BB",
-                              5 => x"AA",
-                              6 => x"99",
-                              7 => x"88",
-                              8 => x"77",
-                              9 => x"66",
-                              10 => x"55",
-                              11 => x"44",
-                              12 => x"33",
-                              13 => x"22",
+  -- demo 1:
+  constant ROM : ROM_type := (0 => LDA_DIR,
+                              1 => x"F0",
+                              2 => STA_DIR,
+                              3 =>  x"E0", -- LEDR
+                              4 => STA_DIR,
+                              5 =>  x"E1", -- HEX0
+                              6 => STA_DIR,
+                              7 =>  x"E2", -- HEX1
+                              8 => STA_DIR,
+                              9 => x"E3",  -- HEX2
+                              10 => STA_DIR,
+                              11 => x"E4", -- HEX3
+                              12 => BRA,
+                              13 => x"00", -- loop forever
                               14 => x"11",
                               15 => x"00",
                               others => x"00");
 
+  -- adding program:
+  -- constant ROM : ROM_type := (0 => LDA_IMM,
+  --                             1 => x"10",
+  --                             2 => LDB_IMM,
+  --                             3 =>  x"0F",
+  --                             4 => ADD_AB,
+  --                             5 => STA_DIR, -- HEX0
+  --                             6 =>  x"E1",
+  --                             7 => STA_DIR, -- HEX1
+  --                             8 =>  x"E0",
+  --                             9 => BRA,  -- HEX2
+  --                             10 => x"09",
+  --                             11 => x"E3", -- HEX3
+  --                             12 => BRA,
+  --                             13 => x"00", -- loop forever
+  --                             14 => x"11",
+  --                             15 => x"00",
+  --                             others => x"00");
 
 begin
   MEMORY : process(clock)

@@ -29,6 +29,7 @@ architecture control_unit_arch of control_unit is
      S_STB_DIR_4, S_STB_DIR_5, S_STB_DIR_6, S_STB_DIR_7,
 
      S_ADD_AB_4,
+     s_SUB_AB_4,
      S_BRA_4, S_BRA_5, S_BRA_6,
      S_BEQ_4, S_BEQ_5, S_BEQ_6, S_BEQ_7);
 
