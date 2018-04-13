@@ -1,0 +1,123 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sat Apr  7 22:30:21 2018
+[*]
+[dumpfile] "/home/stuart/Documents/EELE-367/labs/lab13_final/output.ghw"
+[dumpfile_mtime] "Sat Apr  7 22:12:17 2018"
+[dumpfile_size] 17348
+[savefile] "/home/stuart/Documents/EELE-367/labs/lab13_final/memory_test.gtkw"
+[timestart] 8534900000
+[size] 1402 1022
+[pos] -1 -1
+*-25.929558 8925600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.test_memory.
+[treeopen] top.test_memory.dut.
+[treeopen] top.test_memory.dut.rw.
+[treeopen] top.test_memory.dut.rw.storage.
+[treeopen] top.test_memory.ports_in_tb.
+[sst_width] 207
+[signals_width] 213
+[sst_expanded] 1
+[sst_vpaned_height] 294
+@28
+top.test_memory.reset_tb
+top.test_memory.clock_tb
+@c00024
+#{top.test_memory.address_tb[7:0]} top.test_memory.address_tb[7] top.test_memory.address_tb[6] top.test_memory.address_tb[5] top.test_memory.address_tb[4] top.test_memory.address_tb[3] top.test_memory.address_tb[2] top.test_memory.address_tb[1] top.test_memory.address_tb[0]
+@28
+top.test_memory.address_tb[7]
+top.test_memory.address_tb[6]
+top.test_memory.address_tb[5]
+top.test_memory.address_tb[4]
+top.test_memory.address_tb[3]
+top.test_memory.address_tb[2]
+top.test_memory.address_tb[1]
+top.test_memory.address_tb[0]
+@1401200
+-group_end
+@c00024
+#{top.test_memory.data_out_tb[7:0]} top.test_memory.data_out_tb[7] top.test_memory.data_out_tb[6] top.test_memory.data_out_tb[5] top.test_memory.data_out_tb[4] top.test_memory.data_out_tb[3] top.test_memory.data_out_tb[2] top.test_memory.data_out_tb[1] top.test_memory.data_out_tb[0]
+@28
+top.test_memory.data_out_tb[7]
+top.test_memory.data_out_tb[6]
+top.test_memory.data_out_tb[5]
+top.test_memory.data_out_tb[4]
+top.test_memory.data_out_tb[3]
+top.test_memory.data_out_tb[2]
+top.test_memory.data_out_tb[1]
+top.test_memory.data_out_tb[0]
+@1401200
+-group_end
+@200
+-
+@c00024
+#{top.test_memory.dut.rw.address[6:0]} top.test_memory.dut.rw.address[6] top.test_memory.dut.rw.address[5] top.test_memory.dut.rw.address[4] top.test_memory.dut.rw.address[3] top.test_memory.dut.rw.address[2] top.test_memory.dut.rw.address[1] top.test_memory.dut.rw.address[0]
+@28
+top.test_memory.dut.rw.address[6]
+top.test_memory.dut.rw.address[5]
+top.test_memory.dut.rw.address[4]
+top.test_memory.dut.rw.address[3]
+top.test_memory.dut.rw.address[2]
+top.test_memory.dut.rw.address[1]
+top.test_memory.dut.rw.address[0]
+@1401200
+-group_end
+@c00024
+#{top.test_memory.dut.rw.data_out[7:0]} top.test_memory.dut.rw.data_out[7] top.test_memory.dut.rw.data_out[6] top.test_memory.dut.rw.data_out[5] top.test_memory.dut.rw.data_out[4] top.test_memory.dut.rw.data_out[3] top.test_memory.dut.rw.data_out[2] top.test_memory.dut.rw.data_out[1] top.test_memory.dut.rw.data_out[0]
+@28
+top.test_memory.dut.rw.data_out[7]
+top.test_memory.dut.rw.data_out[6]
+top.test_memory.dut.rw.data_out[5]
+top.test_memory.dut.rw.data_out[4]
+top.test_memory.dut.rw.data_out[3]
+top.test_memory.dut.rw.data_out[2]
+top.test_memory.dut.rw.data_out[1]
+top.test_memory.dut.rw.data_out[0]
+@1401200
+-group_end
+@200
+-
+@28
+top.test_memory.dut.rw.w_bit
+@c00022
+#{top.test_memory.dut.rw.storage[0][7:0]} top.test_memory.dut.rw.storage[0][7] top.test_memory.dut.rw.storage[0][6] top.test_memory.dut.rw.storage[0][5] top.test_memory.dut.rw.storage[0][4] top.test_memory.dut.rw.storage[0][3] top.test_memory.dut.rw.storage[0][2] top.test_memory.dut.rw.storage[0][1] top.test_memory.dut.rw.storage[0][0]
+@28
+top.test_memory.dut.rw.storage[0][7]
+top.test_memory.dut.rw.storage[0][6]
+top.test_memory.dut.rw.storage[0][5]
+top.test_memory.dut.rw.storage[0][4]
+top.test_memory.dut.rw.storage[0][3]
+top.test_memory.dut.rw.storage[0][2]
+top.test_memory.dut.rw.storage[0][1]
+top.test_memory.dut.rw.storage[0][0]
+@1401200
+-group_end
+@22
+#{top.test_memory.dut.rw.storage[1][7:0]} top.test_memory.dut.rw.storage[1][7] top.test_memory.dut.rw.storage[1][6] top.test_memory.dut.rw.storage[1][5] top.test_memory.dut.rw.storage[1][4] top.test_memory.dut.rw.storage[1][3] top.test_memory.dut.rw.storage[1][2] top.test_memory.dut.rw.storage[1][1] top.test_memory.dut.rw.storage[1][0]
+#{top.test_memory.dut.rw.storage[2][7:0]} top.test_memory.dut.rw.storage[2][7] top.test_memory.dut.rw.storage[2][6] top.test_memory.dut.rw.storage[2][5] top.test_memory.dut.rw.storage[2][4] top.test_memory.dut.rw.storage[2][3] top.test_memory.dut.rw.storage[2][2] top.test_memory.dut.rw.storage[2][1] top.test_memory.dut.rw.storage[2][0]
+#{top.test_memory.dut.rw.storage[3][7:0]} top.test_memory.dut.rw.storage[3][7] top.test_memory.dut.rw.storage[3][6] top.test_memory.dut.rw.storage[3][5] top.test_memory.dut.rw.storage[3][4] top.test_memory.dut.rw.storage[3][3] top.test_memory.dut.rw.storage[3][2] top.test_memory.dut.rw.storage[3][1] top.test_memory.dut.rw.storage[3][0]
+@24
+#{top.test_memory.dut.rw.storage[95][7:0]} top.test_memory.dut.rw.storage[95][7] top.test_memory.dut.rw.storage[95][6] top.test_memory.dut.rw.storage[95][5] top.test_memory.dut.rw.storage[95][4] top.test_memory.dut.rw.storage[95][3] top.test_memory.dut.rw.storage[95][2] top.test_memory.dut.rw.storage[95][1] top.test_memory.dut.rw.storage[95][0]
+@200
+-
+@24
+#{top.test_memory.ports_out_tb[0][7:0]} top.test_memory.ports_out_tb[0][7] top.test_memory.ports_out_tb[0][6] top.test_memory.ports_out_tb[0][5] top.test_memory.ports_out_tb[0][4] top.test_memory.ports_out_tb[0][3] top.test_memory.ports_out_tb[0][2] top.test_memory.ports_out_tb[0][1] top.test_memory.ports_out_tb[0][0]
+@22
+#{top.test_memory.ports_out_tb[1][7:0]} top.test_memory.ports_out_tb[1][7] top.test_memory.ports_out_tb[1][6] top.test_memory.ports_out_tb[1][5] top.test_memory.ports_out_tb[1][4] top.test_memory.ports_out_tb[1][3] top.test_memory.ports_out_tb[1][2] top.test_memory.ports_out_tb[1][1] top.test_memory.ports_out_tb[1][0]
+#{top.test_memory.ports_out_tb[2][7:0]} top.test_memory.ports_out_tb[2][7] top.test_memory.ports_out_tb[2][6] top.test_memory.ports_out_tb[2][5] top.test_memory.ports_out_tb[2][4] top.test_memory.ports_out_tb[2][3] top.test_memory.ports_out_tb[2][2] top.test_memory.ports_out_tb[2][1] top.test_memory.ports_out_tb[2][0]
+#{top.test_memory.ports_out_tb[3][7:0]} top.test_memory.ports_out_tb[3][7] top.test_memory.ports_out_tb[3][6] top.test_memory.ports_out_tb[3][5] top.test_memory.ports_out_tb[3][4] top.test_memory.ports_out_tb[3][3] top.test_memory.ports_out_tb[3][2] top.test_memory.ports_out_tb[3][1] top.test_memory.ports_out_tb[3][0]
+#{top.test_memory.ports_out_tb[4][7:0]} top.test_memory.ports_out_tb[4][7] top.test_memory.ports_out_tb[4][6] top.test_memory.ports_out_tb[4][5] top.test_memory.ports_out_tb[4][4] top.test_memory.ports_out_tb[4][3] top.test_memory.ports_out_tb[4][2] top.test_memory.ports_out_tb[4][1] top.test_memory.ports_out_tb[4][0]
+#{top.test_memory.ports_out_tb[5][7:0]} top.test_memory.ports_out_tb[5][7] top.test_memory.ports_out_tb[5][6] top.test_memory.ports_out_tb[5][5] top.test_memory.ports_out_tb[5][4] top.test_memory.ports_out_tb[5][3] top.test_memory.ports_out_tb[5][2] top.test_memory.ports_out_tb[5][1] top.test_memory.ports_out_tb[5][0]
+@200
+-
+@22
+#{top.test_memory.ports_in_tb[0][7:0]} top.test_memory.ports_in_tb[0][7] top.test_memory.ports_in_tb[0][6] top.test_memory.ports_in_tb[0][5] top.test_memory.ports_in_tb[0][4] top.test_memory.ports_in_tb[0][3] top.test_memory.ports_in_tb[0][2] top.test_memory.ports_in_tb[0][1] top.test_memory.ports_in_tb[0][0]
+#{top.test_memory.ports_in_tb[1][7:0]} top.test_memory.ports_in_tb[1][7] top.test_memory.ports_in_tb[1][6] top.test_memory.ports_in_tb[1][5] top.test_memory.ports_in_tb[1][4] top.test_memory.ports_in_tb[1][3] top.test_memory.ports_in_tb[1][2] top.test_memory.ports_in_tb[1][1] top.test_memory.ports_in_tb[1][0]
+#{top.test_memory.ports_in_tb[2][7:0]} top.test_memory.ports_in_tb[2][7] top.test_memory.ports_in_tb[2][6] top.test_memory.ports_in_tb[2][5] top.test_memory.ports_in_tb[2][4] top.test_memory.ports_in_tb[2][3] top.test_memory.ports_in_tb[2][2] top.test_memory.ports_in_tb[2][1] top.test_memory.ports_in_tb[2][0]
+#{top.test_memory.ports_in_tb[3][7:0]} top.test_memory.ports_in_tb[3][7] top.test_memory.ports_in_tb[3][6] top.test_memory.ports_in_tb[3][5] top.test_memory.ports_in_tb[3][4] top.test_memory.ports_in_tb[3][3] top.test_memory.ports_in_tb[3][2] top.test_memory.ports_in_tb[3][1] top.test_memory.ports_in_tb[3][0]
+#{top.test_memory.ports_in_tb[4][7:0]} top.test_memory.ports_in_tb[4][7] top.test_memory.ports_in_tb[4][6] top.test_memory.ports_in_tb[4][5] top.test_memory.ports_in_tb[4][4] top.test_memory.ports_in_tb[4][3] top.test_memory.ports_in_tb[4][2] top.test_memory.ports_in_tb[4][1] top.test_memory.ports_in_tb[4][0]
+@23
+#{top.test_memory.ports_in_tb[5][7:0]} top.test_memory.ports_in_tb[5][7] top.test_memory.ports_in_tb[5][6] top.test_memory.ports_in_tb[5][5] top.test_memory.ports_in_tb[5][4] top.test_memory.ports_in_tb[5][3] top.test_memory.ports_in_tb[5][2] top.test_memory.ports_in_tb[5][1] top.test_memory.ports_in_tb[5][0]
+[pattern_trace] 1
+[pattern_trace] 0
